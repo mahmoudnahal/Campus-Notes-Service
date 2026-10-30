@@ -1,0 +1,9 @@
+.git
+.gitignore
+.vscode
+data
+docs
+README.md
+Dockerfile
+.dockerignore
+*.sqlite
