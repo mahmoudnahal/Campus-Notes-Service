@@ -1,0 +1,28 @@
+name: Docker Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t campus-notes-service .
+
+      - name: Run container
+        run: docker run -d --name campus-notes -p 8000:80 campus-notes-service
+
+      - name: Check health endpoint
+        run: |
+          sleep 8
+          curl -fs http://localhost:8000/health
+
+      - name: Show logs on failure
+        if: failure()
+        run: docker logs campus-notes
