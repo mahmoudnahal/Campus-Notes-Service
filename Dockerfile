@@ -1,3 +1,10 @@
+# Stage 1: fail the build if any PHP file has a syntax error
+FROM php:8.2-apache AS lint
+COPY src/ /src/
+RUN find /src -name '*.php' | xargs -n1 php -l
+
+# Stage 2: final image
+
 FROM php:8.2-apache
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
@@ -16,7 +23,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
 
 WORKDIR /var/www/html
 
-COPY src/ /var/www/html/
+COPY --from=lint /src/ /var/www/html/
 
 # Persistent storage for the SQLite database
 VOLUME /data
