@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    container_name: campus-notes
+    ports:
+      - "8000:80"
+    volumes:
+      - notes-data:/data
+    restart: unless-stopped
+
+volumes:
+  notes-data:

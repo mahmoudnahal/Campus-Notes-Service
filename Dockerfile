@@ -23,5 +23,8 @@ VOLUME /data
 
 EXPOSE 80
 
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -fs http://localhost/health || exit 1
+
 # Start Apache in the foreground so the container keeps running
 CMD ["apache2-foreground"]
