@@ -71,6 +71,14 @@ docker volume rm notes-data   # optional: deletes the saved notes
 
 See the `docs/screenshots/` folder: Docker build, running container, the app in the browser, and the health endpoint.
 
+## Bonus features
+
+- **Docker Compose:** `docker compose up -d --build` builds and starts the app.
+- **Multi-stage build:** a first stage runs `php -l` on every PHP file, so the build fails on syntax errors.
+- **Healthcheck:** the container is marked `healthy` when `/health` responds.
+- **Makefile:** `make build`, `make run`, `make stop`, `make logs`.
+- **GitHub Actions:** builds the image, runs the container and checks `/health` on every push and pull request.
+
 ## Notes
 
 Technical notes are in [docs/notes.md](docs/notes.md).
